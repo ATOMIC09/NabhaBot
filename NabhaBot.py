@@ -27,7 +27,7 @@ async def send(ctx, id, *, text):
 # Events
 @bot.event
 async def on_ready():
-	await bot.change_presence(activity=discord.Game(name="วันนี้เหนื่อยค่ะ"))
+	await bot.change_presence(activity=discord.Game(name="ไหนใครว่าครูเป็นลูกชิ้น"))
 	print('Nabha Online !')
 
 Token = os.environ["NabhaToken"]
