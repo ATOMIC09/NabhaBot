@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 import os
+from chatterbot.trainers import ListTrainer
+from chatterbot import ChatBot
 
 
 intents = discord.Intents.default()
@@ -23,6 +25,35 @@ async def info(ctx):
 async def send(ctx, id, *, text):
 		channel = ctx.bot.get_channel(int(id))
 		await channel.send(text)
+
+# Listen
+@bot.listen()
+async def on_message(message):
+	chatbot = ChatBot("ลูกชิ้น")
+	conversation = [
+   		"สวัสดีค่ะ",
+    	"ดีค่ะนักเรียน",
+    	"เป็นยังไงบ้างคะ",
+    	"ครูสบายดี",
+		"ครูอายุ 50 ปีแล้วค่ะ",
+		"หัวหน้าอยู่ไหน",
+		"ทำการบ้านครูกันรึยัง",
+		"ครูได้ให้งานรึเปล่า",
+		"เข้าใจไหมคะนักเรียน",
+    	"ทำไมไม่มีใครตอบครูเลย",
+	]
+
+	trainer = ListTrainer(chatbot)
+	trainer.train(conversation)
+	textttt = message.content.lower()
+
+	response = chatbot.get_response(textttt)
+	output = str(response) + "\n"
+
+	if message.author.id == bot.user.id:
+		return
+	await message.channel.send(output)
+
 
 # Events
 @bot.event
