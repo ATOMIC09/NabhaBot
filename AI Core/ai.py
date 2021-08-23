@@ -13,7 +13,7 @@ conversation = [
 
 trainer = ListTrainer(chatbot)
 trainer.train(conversation)
-textttt = str(input("Enter : "))
-
-response = chatbot.get_response(textttt)
-print(str(response))
+while True:
+    textttt = str(input("Enter : "))
+    response = chatbot.get_response(textttt)
+    print(str(response))
