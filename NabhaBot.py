@@ -24,8 +24,8 @@ async def info(ctx):
 
 @bot.command()
 async def send(ctx, id, *, text):
-        channel = ctx.bot.get_channel(int(id))
-        await channel.send(text)
+	channel = ctx.bot.get_channel(int(id))
+	await channel.send(text)
 
 @bot.command()
 async def ai_on(ctx):
