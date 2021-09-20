@@ -4,6 +4,7 @@ import os
 from chatterbot.trainers import ListTrainer
 from chatterbot import ChatBot
 from time import sleep
+import random
 
 
 intents = discord.Intents.default()
@@ -40,7 +41,58 @@ async def ai_off(ctx):
         await ctx.send("AI Core: OFF ❎")
         bot.ai_core = 0
 
+# Meme Random
+@bot.command()
+async def meme(ctx):
+        number = random.randint(1,111)
+        file = discord.File(f"A:/Documents/GitHub/NabhaBot/MemePack/clip({number}).mp4")
+        await ctx.send(file=file)
+        
 # Listen
+@bot.listen()
+async def on_message(message):
+        if "นภาหุบ" in message.content.lower():
+                if message.author.id == bot.user.id:
+                        return
+                await message.channel.send('ไม่พูดแล้วค่ะ')
+                await bot.change_presence(activity=discord.Game(name="AI Core: OFF ❎"))
+                bot.ai_core = 0
+
+        if "นภาเงียบ" in message.content.lower():
+                if message.author.id == bot.user.id:
+                        return
+                await message.channel.send('ไม่พูดแล้วค่ะ')
+                await bot.change_presence(activity=discord.Game(name="AI Core: OFF ❎"))
+                bot.ai_core = 0
+
+        if "ลูกชิ้นหุบ" in message.content.lower():
+                if message.author.id == bot.user.id:
+                        return
+                await message.channel.send('ไม่พูดแล้วค่ะ')
+                await bot.change_presence(activity=discord.Game(name="AI Core: OFF ❎"))
+                bot.ai_core = 0
+
+        if "shutup napha" in message.content.lower():
+                if message.author.id == bot.user.id:
+                        return
+                await message.channel.send('ไม่พูดแล้วค่ะ')
+                await bot.change_presence(activity=discord.Game(name="AI Core: OFF ❎"))
+                bot.ai_core = 0
+
+        if "นภา" in message.content.lower():
+                if message.author.id == bot.user.id:
+                        return
+                await message.channel.send('มีอะไรคะนักเรียน')
+                await bot.change_presence(activity=discord.Game(name="AI Core: ON ✅"))
+                bot.ai_core = 1
+
+        if "ลูกชิ้น" in message.content.lower():
+                if message.author.id == bot.user.id:
+                        return
+                await message.channel.send('มีอะไรคะนักเรียน')
+                await bot.change_presence(activity=discord.Game(name="AI Core: ON ✅"))
+                bot.ai_core = 1
+
 @bot.listen()
 async def on_message(message):
         if bot.ai_core == 1 and message.author.id != bot.user.id:
@@ -120,15 +172,25 @@ async def on_message(message):
                 textttt = message.content.lower()
                 response = chatbot.get_response(textttt)
                 output = str(response) + "\n"
-                sleep(3)
+                #sleep(3)
                 await message.channel.send(output)
                 if message.author.id == bot.user.id:
                         return	
+
+        elif "นภาหุบ" in message.content.lower():
+                await message.channel.send('ไม่พูดแล้วค่ะ')
+                await bot.change_presence(activity=discord.Game(name="AI Core: OFF ❎"))
+                bot.ai_core = 0
+
+        elif "ลูกชิ้นหุบ" in message.content.lower():
+                await message.channel.send('ไม่พูดแล้วค่ะ')
+                await bot.change_presence(activity=discord.Game(name="AI Core: OFF ❎"))
+                bot.ai_core = 0
 		
 # Events
 @bot.event
 async def on_ready():
-	await bot.change_presence(activity=discord.Game(name="ไหนใครว่าครูเป็นลูกชิ้น"))
+	await bot.change_presence(activity=discord.Game(name="AI Core: OFF ❎"))
 	print('Nabha Online !')
 
 Token = os.environ["NabhaToken"]
